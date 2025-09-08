@@ -14,7 +14,10 @@
     "client.ChatHudMixin",
     "client.ClientPlayerEntityMixin",
     "client.ClientWorldMixin",
+    "client.CreativeInventoryScreenMixin",
+    "client.HandledScreenMixin",
     "client.KeyBindingMixin",
+    "client.MinecraftClientMixin",
     "client.PlayerEntityRendererMixin",
     "client.WorldRendererMixin"
   ]

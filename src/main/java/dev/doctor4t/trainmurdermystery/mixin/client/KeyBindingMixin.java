@@ -21,7 +21,6 @@ public abstract class KeyBindingMixin {
     private boolean shouldSuppressKey() {
         if (TrainMurderMysteryClient.shouldRestrictPlayerOptions()) {
             return this.equals(MinecraftClient.getInstance().options.swapHandsKey) ||
-                    this.equals(MinecraftClient.getInstance().options.inventoryKey) ||
                     this.equals(MinecraftClient.getInstance().options.dropKey) ||
                     this.equals(MinecraftClient.getInstance().options.chatKey) ||
                     this.equals(MinecraftClient.getInstance().options.commandKey) ||

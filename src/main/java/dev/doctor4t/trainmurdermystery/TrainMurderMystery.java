@@ -33,15 +33,12 @@ public class TrainMurderMystery implements ModInitializer {
 
     }
 
-// TODO: Simplify opened inventory
 // TODO: Add roles
 // TODO: Add objectives
 // TODO: Add tasks
 // TODO: Add temp jamming doors with lockpick
 // TODO: Add ledge block
 // TODO: Remove survival UI
-// TODO: Remove sprint
-// TODO: Disable debug
 // TODO: Lock brightness option
 // TODO: Add snack cabinet
 // TODO: Add drink cabinet
