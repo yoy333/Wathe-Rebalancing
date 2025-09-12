@@ -4,8 +4,6 @@ import dev.doctor4t.trainmurdermystery.client.TrainMurderMysteryClient;
 import dev.doctor4t.trainmurdermystery.client.gui.screen.ingame.LimitedInventoryScreen;
 import net.minecraft.client.gui.screen.ingame.AbstractInventoryScreen;
 import net.minecraft.client.gui.screen.ingame.CreativeInventoryScreen;
-import net.minecraft.client.gui.screen.ingame.InventoryScreen;
-import net.minecraft.client.gui.screen.recipebook.RecipeBookProvider;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.text.Text;
@@ -21,7 +19,7 @@ public abstract class CreativeInventoryScreenMixin extends AbstractInventoryScre
     }
 
     @Inject(method = "handledScreenTick", at = @At("HEAD"), cancellable = true)
-    public void render(CallbackInfo ci) {
+    public void tmm$replaceSurvivalInventory(CallbackInfo ci) {
         if (TrainMurderMysteryClient.shouldRestrictPlayerOptions()) {
             this.client.setScreen(new LimitedInventoryScreen(this.client.player));
             ci.cancel();

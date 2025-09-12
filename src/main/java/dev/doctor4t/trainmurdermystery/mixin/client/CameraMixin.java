@@ -1,6 +1,5 @@
 package dev.doctor4t.trainmurdermystery.mixin.client;
 
-import dev.doctor4t.trainmurdermystery.cca.TrainMurderMysteryComponents;
 import dev.doctor4t.trainmurdermystery.client.TrainMurderMysteryClient;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -31,7 +30,7 @@ public class CameraMixin {
     }
 
     @Inject(method = "update", at = @At("RETURN"))
-    private void trainmurdermystery$doScreenshake(BlockView area, Entity focusedEntity, boolean thirdPerson, boolean inverseView, float tickDelta, CallbackInfo ci) {
+    private void tmm$doScreenshake(BlockView area, Entity focusedEntity, boolean thirdPerson, boolean inverseView, float tickDelta, CallbackInfo ci) {
         if (TrainMurderMysteryClient.isTrainMoving()) {
             Camera camera = (Camera) (Object) this;
 

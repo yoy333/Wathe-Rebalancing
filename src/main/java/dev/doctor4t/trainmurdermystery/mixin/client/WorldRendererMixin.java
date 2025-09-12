@@ -4,7 +4,6 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.systems.RenderSystem;
-import dev.doctor4t.trainmurdermystery.cca.TrainMurderMysteryComponents;
 import dev.doctor4t.trainmurdermystery.client.TrainMurderMysteryClient;
 import dev.doctor4t.trainmurdermystery.client.util.AlwaysVisibleFrustum;
 import it.unimi.dsi.fastutil.objects.ObjectListIterator;
@@ -42,24 +41,19 @@ public abstract class WorldRendererMixin {
     private ClientWorld world;
 
     @Inject(method = "method_52816", at = @At(value = "RETURN"), cancellable = true)
-    private static void method_52816(Frustum frustum, CallbackInfoReturnable<Frustum> cir) {
+    private static void tmm$setFrustumToAlwaysVisible(Frustum frustum, CallbackInfoReturnable<Frustum> cir) {
         cir.setReturnValue(new AlwaysVisibleFrustum(frustum));
     }
 
-//    @WrapOperation(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/WorldRenderer;setupTerrain(Lnet/minecraft/client/render/Camera;Lnet/minecraft/client/render/Frustum;ZZ)V"))
-//    public void render(WorldRenderer instance, Camera camera, Frustum frustum, boolean hasForcedFrustum, boolean spectator, Operation<Void> original) {
-//        original.call(instance, camera, frustum, hasForcedFrustum, spectator);
-//    }
-
     @WrapOperation(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/WorldRenderer;renderSky(Lorg/joml/Matrix4f;Lorg/joml/Matrix4f;FLnet/minecraft/client/render/Camera;ZLjava/lang/Runnable;)V"))
-    public void render(WorldRenderer instance, Matrix4f matrix4f, Matrix4f projectionMatrix, float tickDelta, Camera camera, boolean thickFog, Runnable fogCallback, Operation<Void> original) {
+    public void tmm$disableSky(WorldRenderer instance, Matrix4f matrix4f, Matrix4f projectionMatrix, float tickDelta, Camera camera, boolean thickFog, Runnable fogCallback, Operation<Void> original) {
         if (!TrainMurderMysteryClient.isTrainMoving()) {
             original.call(instance, matrix4f, projectionMatrix, tickDelta, camera, thickFog, fogCallback);
         }
     }
 
     @WrapOperation(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/BackgroundRenderer;applyFog(Lnet/minecraft/client/render/Camera;Lnet/minecraft/client/render/BackgroundRenderer$FogType;FZF)V"))
-    public void render(Camera camera, BackgroundRenderer.FogType fogType, float viewDistance, boolean thickFog, float tickDelta, Operation<Void> original) {
+    public void tmm$applyBlizzardFog(Camera camera, BackgroundRenderer.FogType fogType, float viewDistance, boolean thickFog, float tickDelta, Operation<Void> original) {
         if (TrainMurderMysteryClient.isTrainMoving()) {
             applyBlizzardFog();
         }
@@ -80,7 +74,7 @@ public abstract class WorldRendererMixin {
     }
 
     @Inject(method = "renderLayer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gl/ShaderProgram;bind()V", shift = At.Shift.AFTER), cancellable = true)
-    private void render(RenderLayer renderLayer, double x, double y, double z, Matrix4f matrix4f, Matrix4f positionMatrix, CallbackInfo ci, @Local ObjectListIterator<ChunkBuilder.BuiltChunk> objectListIterator, @Local ShaderProgram shaderProgram) {
+    private void tmm$renderScenery(RenderLayer renderLayer, double x, double y, double z, Matrix4f matrix4f, Matrix4f positionMatrix, CallbackInfo ci, @Local ObjectListIterator<ChunkBuilder.BuiltChunk> objectListIterator, @Local ShaderProgram shaderProgram) {
         if (TrainMurderMysteryClient.isTrainMoving()) {
             GlUniform glUniform = shaderProgram.chunkOffset;
 

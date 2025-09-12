@@ -1,6 +1,5 @@
 package dev.doctor4t.trainmurdermystery.mixin.client;
 
-import dev.doctor4t.trainmurdermystery.cca.TrainMurderMysteryComponents;
 import dev.doctor4t.trainmurdermystery.client.TrainMurderMysteryClient;
 import dev.doctor4t.trainmurdermystery.index.TrainMurderMysteryParticles;
 import net.minecraft.client.MinecraftClient;
@@ -38,7 +37,7 @@ public abstract class ClientWorldMixin extends World  {
     @Shadow @Final private MinecraftClient client;
 
     @Inject(method = "tick", at = @At("TAIL"))
-    public void tick(BooleanSupplier shouldKeepTicking, CallbackInfo ci) {
+    public void tmm$addSnowflakes(BooleanSupplier shouldKeepTicking, CallbackInfo ci) {
         if (TrainMurderMysteryClient.isTrainMoving()) {
             ClientPlayerEntity player = client.player;
             Random random = player.getRandom();

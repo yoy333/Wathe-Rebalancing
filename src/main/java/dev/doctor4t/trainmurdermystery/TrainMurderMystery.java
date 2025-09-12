@@ -1,7 +1,5 @@
 package dev.doctor4t.trainmurdermystery;
 
-import dev.doctor4t.trainmurdermystery.cca.TrainMurderMysteryComponents;
-import dev.doctor4t.trainmurdermystery.cca.WorldGameComponent;
 import dev.doctor4t.trainmurdermystery.command.GiveRoomKeyCommand;
 import dev.doctor4t.trainmurdermystery.command.SetTrainSpeedCommand;
 import dev.doctor4t.trainmurdermystery.command.StartGameCommand;
@@ -10,15 +8,9 @@ import dev.doctor4t.trainmurdermystery.index.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.UUID;
 
 public class TrainMurderMystery implements ModInitializer {
     public static final String MOD_ID = "trainmurdermystery";
@@ -49,7 +41,6 @@ public class TrainMurderMystery implements ModInitializer {
         ServerTickEvents.START_WORLD_TICK.register(GameLoop::tick);
     }
 
-// TODO: Add objectives
 // TODO: Add tasks
 // TODO: Add temp jamming doors with lockpick
 // TODO: Remove survival UI

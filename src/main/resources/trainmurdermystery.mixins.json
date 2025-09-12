@@ -3,6 +3,7 @@
   "package": "dev.doctor4t.trainmurdermystery.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "DedicatedPlayerManagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
@@ -15,8 +16,6 @@
     "client.ClientPlayerEntityMixin",
     "client.ClientWorldMixin",
     "client.CreativeInventoryScreenMixin",
-    "client.GameOptionsMixin",
-    "client.HandledScreenMixin",
     "client.KeyBindingMixin",
     "client.MinecraftClientMixin",
     "client.PlayerEntityRendererMixin",

@@ -1,5 +1,6 @@
 package dev.doctor4t.trainmurdermystery.client;
 
+import dev.doctor4t.ratatouille.client.util.OptionLocker;
 import dev.doctor4t.ratatouille.client.util.ambience.AmbienceUtil;
 import dev.doctor4t.ratatouille.client.util.ambience.BackgroundAmbience;
 import dev.doctor4t.trainmurdermystery.TrainMurderMystery;
@@ -108,6 +109,10 @@ public class TrainMurderMysteryClient implements ClientModInitializer {
         ClientTickEvents.START_WORLD_TICK.register(clientWorld -> {
             trainSpeed = TrainMurderMysteryComponents.TRAIN.get(clientWorld).getTrainSpeed();
         });
+
+        // Lock options
+        OptionLocker.overrideOption("gamma", 0d);
+        OptionLocker.overrideOption("renderDistance", 32);
     }
 
     public static boolean isSkyVisibleAdjacent(ClientPlayerEntity player) {
