@@ -40,7 +40,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     public float tmm$overrideMovementSpeed(float original) {
         if (TMMGameLoop.isPlayerAliveAndSurvival((PlayerEntity) (Object) this)) {
             var speed = this.isSprinting() ? 0.1f : 0.07f;
-            speed *= MathHelper.lerp(PlayerMoodComponent.KEY.get(this).mood, 0.5f, 1f) - 1f;
+            speed *= MathHelper.lerp(PlayerMoodComponent.KEY.get(this).mood, 0.5f, 1f);
             return speed;
         } else {
             return original;
