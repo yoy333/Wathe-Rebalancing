@@ -6,10 +6,10 @@ import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TMMItemTooltips {
@@ -19,22 +19,21 @@ public class TMMItemTooltips {
 
     public static void addTooltips() {
         ItemTooltipCallback.EVENT.register((itemStack, tooltipContext, tooltipType, tooltipList) -> {
-            addTooltipsForItem(TMMItems.KNIFE, itemStack, tooltipList);
-            addTooltipsForItem(TMMItems.LOCKPICK, itemStack, tooltipList);
-            addTooltipsForItem(TMMItems.REVOLVER, itemStack, tooltipList);
-            addTooltipsForItem(TMMItems.BODY_BAG, itemStack, tooltipList);
-            addTooltipsForItem(TMMItems.BLACKOUT, itemStack, tooltipList);
-            addTooltipsForItem(TMMItems.PSYCHO_MODE, itemStack, tooltipList);
+            addTooltipForItem(TMMItems.KNIFE, itemStack, tooltipList);
+            addTooltipForItem(TMMItems.LOCKPICK, itemStack, tooltipList);
+            addTooltipForItem(TMMItems.REVOLVER, itemStack, tooltipList);
+            addTooltipForItem(TMMItems.BODY_BAG, itemStack, tooltipList);
+            addTooltipForItem(TMMItems.BLACKOUT, itemStack, tooltipList);
+            addTooltipForItem(TMMItems.PSYCHO_MODE, itemStack, tooltipList);
             addCooldownText(TMMItems.KNIFE, tooltipList, itemStack);
             addCooldownText(TMMItems.LOCKPICK, tooltipList, itemStack);
         });
     }
 
-    private static void addTooltipsForItem(Item item, @NotNull ItemStack itemStack, List<Text> tooltipList) {
-        if (!itemStack.isOf(item)) return;
-
-        List<Text> withLineBreaks = TextUtils.getWithLineBreaks(Text.translatable("tip." + item.getTranslationKey().substring(24) + ".tooltip").withColor(REGULAR_TOOLTIP_COLOR));
-        tooltipList.addAll(withLineBreaks);
+    private static void addTooltipForItem(Item item, @NotNull ItemStack itemStack, List<Text> tooltipList) {
+        if (itemStack.isOf(item)) {
+            tooltipList.addAll(TextUtils.getTooltipForItem(item, Style.EMPTY.withColor(REGULAR_TOOLTIP_COLOR)));
+        }
     }
 
     private static void addCooldownText(Item item, List<Text> tooltipList, @NotNull ItemStack itemStack) {
