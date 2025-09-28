@@ -75,7 +75,7 @@ public class BeveragePlateBlockEntity extends BlockEntity {
             if (!this.storedItems.get(i).isEmpty()) itemsNbt.put("Item" + i, this.storedItems.get(i).encode(registryLookup));
         }
         nbt.put("Items", itemsNbt);
-        nbt.putString("poisoner", this.poisoner);
+        if (this.poisoner != null) nbt.putString("poisoner", this.poisoner);
     }
 
     @Override
