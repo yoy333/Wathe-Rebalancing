@@ -25,6 +25,7 @@ public class TMMItemTooltips {
             addTooltipForItem(TMMItems.PSYCHO_MODE, itemStack, tooltipList);
             addTooltipForItem(TMMItems.POISON_VIAL, itemStack, tooltipList);
             addTooltipForItem(TMMItems.SCORPION, itemStack, tooltipList);
+            addTooltipForItem(TMMItems.FIRECRACKER, itemStack, tooltipList);
             addTooltipForItem(TMMItems.LOCKPICK, itemStack, tooltipList);
             addTooltipForItem(TMMItems.CROWBAR, itemStack, tooltipList);
             addTooltipForItem(TMMItems.BODY_BAG, itemStack, tooltipList);

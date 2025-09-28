@@ -52,8 +52,8 @@ public interface GameConstants {
     int DECOMPOSING_TIME = getInTicks(4, 0);
 
     // Game areas
-    Vec3d SPAWN_POS = new Vec3d(-573, 0, -323);
-    Box READY_AREA = new Box(-981, -1, -364, -813, 3, -358);
+    Vec3d SPAWN_POS = new Vec3d(-872.5, 0, -323);
+    Box READY_AREA = new Box(-1017, -1, -364, -813, 3, -358);
     BlockPos PLAY_POS = new BlockPos(-19, 122, -539);
     Consumer<ServerPlayerEntity> SPECTATOR_TP = serverPlayerEntity -> serverPlayerEntity.teleport(serverPlayerEntity.getServerWorld(), -68, 133, -535.5, -90, 15);
     Box PLAY_AREA = new Box(-140, 118, -535.5f - 15, 230, 200, -535.5f + 15);
@@ -62,7 +62,7 @@ public interface GameConstants {
 
     // Task Variables
     float MOOD_GAIN = 0.5f;
-    float MOOD_DRAIN = 1f / getInTicks(3, 0);
+    float MOOD_DRAIN = 1f / getInTicks(5, 0);
     int TIME_TO_FIRST_TASK = getInTicks(0, 30);
     int MIN_TASK_COOLDOWN = getInTicks(0, 30);
     int MAX_TASK_COOLDOWN = getInTicks(1, 0);
@@ -86,6 +86,7 @@ public interface GameConstants {
             },
             new ShopEntry(TMMItems.POISON_VIAL.getDefaultStack(), 100, ShopEntry.Type.POISON),
             new ShopEntry(TMMItems.SCORPION.getDefaultStack(), 50, ShopEntry.Type.POISON),
+            new ShopEntry(TMMItems.FIRECRACKER.getDefaultStack(), 25, ShopEntry.Type.TOOL),
             new ShopEntry(TMMItems.LOCKPICK.getDefaultStack(), 100, ShopEntry.Type.TOOL),
             new ShopEntry(TMMItems.CROWBAR.getDefaultStack(), 75, ShopEntry.Type.TOOL),
             new ShopEntry(TMMItems.BODY_BAG.getDefaultStack(), 500, ShopEntry.Type.TOOL),
