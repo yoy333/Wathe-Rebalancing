@@ -38,7 +38,7 @@ public class RoleNameRenderer {
             } else {
                 targetRole = TrainRole.BYSTANDER;
             }
-            var shouldObfuscate = targetRole == TrainRole.BYSTANDER && PlayerPsychoComponent.KEY.get(target).getPsychoTicks() > 0;
+            var shouldObfuscate = PlayerPsychoComponent.KEY.get(target).getPsychoTicks() > 0;
             nametag = shouldObfuscate ? Text.literal("urscrewed" + "X".repeat(player.getRandom().nextInt(8))).styled(style -> style.withFormatting(Formatting.OBFUSCATED, Formatting.DARK_RED)) : nametag;
         } else {
             nametagAlpha = MathHelper.lerp(tickCounter.getTickDelta(true) / 4, nametagAlpha, 0f);
