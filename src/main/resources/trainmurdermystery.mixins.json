@@ -36,6 +36,7 @@
     "client.restrictions.CreativeInventoryScreenMixin",
     "client.restrictions.DebugHudMixin",
     "client.restrictions.EntityRendererMixin",
+    "client.restrictions.GameOptionsMixin",
     "client.restrictions.KeyBindingMixin",
     "client.restrictions.KeyboardMixin",
     "client.restrictions.MinecraftClientMixin",
