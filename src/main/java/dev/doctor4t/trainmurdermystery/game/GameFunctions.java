@@ -341,7 +341,7 @@ public class GameFunctions {
         for (List<ItemStack> list : victim.getInventory().combinedInventory) {
             for (int i = 0; i < list.size(); i++) {
                 ItemStack stack = list.get(i);
-                if (shouldDropOnDeath(stack)) {
+                if (shouldDropOnDeath(stack, victim)) {
                     victim.dropItem(stack, true, false);
                     list.set(i, ItemStack.EMPTY);
                 }
@@ -356,8 +356,8 @@ public class GameFunctions {
         TrainVoicePlugin.addPlayer(victim.getUuid());
     }
 
-    public static boolean shouldDropOnDeath(@NotNull ItemStack stack) {
-        return !stack.isEmpty() && (stack.isOf(TMMItems.REVOLVER) || ShouldDropOnDeath.EVENT.invoker().shouldDrop(stack));
+    public static boolean shouldDropOnDeath(@NotNull ItemStack stack, PlayerEntity victim) {
+        return !stack.isEmpty() && (stack.isOf(TMMItems.REVOLVER) || ShouldDropOnDeath.EVENT.invoker().shouldDrop(stack, victim));
     }
 
     public static boolean isPlayerAliveAndSurvival(PlayerEntity player) {

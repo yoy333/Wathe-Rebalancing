@@ -8,17 +8,16 @@ import static net.fabricmc.fabric.api.event.EventFactory.createArrayBacked;
 public interface AllowPlayerPunching {
 
     /**
-     * Callback for determining whether a player is allowed to punch another player,
-     * for example when holding a knife.
+     * Callback for determining whether a player is allowed to punch another player.
      */
-    Event<AllowPlayerPunching> EVENT = createArrayBacked(AllowPlayerPunching.class, listeners -> player -> {
+    Event<AllowPlayerPunching> EVENT = createArrayBacked(AllowPlayerPunching.class, listeners -> (attacker, victim) -> {
         for (AllowPlayerPunching listener : listeners) {
-            if (listener.allowPunching(player)) {
+            if (listener.allowPunching(attacker, victim)) {
                 return true;
             }
         }
         return false;
     });
 
-    boolean allowPunching(PlayerEntity player);
+    boolean allowPunching(PlayerEntity attacker, PlayerEntity victim);
 }
