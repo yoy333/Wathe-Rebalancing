@@ -149,7 +149,7 @@ public class TMMLangGen extends FabricLanguageProvider {
                     weights: The role weight system that keeps track of the roles players got and favorizes players who did not get vigilante / killer yet to get those roles. Disable if you wish for full-random.
                     autoStart: Time before the game starts automatically when enough players are boarded in seconds.
                     backfire: When a civilian shoots an innocent, chance said civilian will shoot themselves instead. 0 (default) is 0%, 1 is 100%.
-                    roleDividend: The amount of players for which 1 of the role will be chosen (default: 6 for both roles). E.g: 4 means that there's one killer / vigilante for 4 players, meaning 2 killers for 8 people, 3 for 12, etc...
+                    roleDividend: The amount of players for which 1 of the role will be chosen (default: 5 for both roles). E.g: 4 means that there's one killer / vigilante for 4 players, meaning 2 killers for 8 people, 3 for 12, etc...
                     bounds: Enable or disable game bounds that limit spectators to the play area.
                 """);
 

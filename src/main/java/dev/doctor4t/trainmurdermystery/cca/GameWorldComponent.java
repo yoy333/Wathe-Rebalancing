@@ -67,8 +67,8 @@ public class GameWorldComponent implements AutoSyncedComponent, ServerTickingCom
 
     private float backfireChance = 0f;
 
-    private int killerDividend = 6;
-    private int vigilanteDividend = 6;
+    private int killerDividend = 5;
+    private int vigilanteDividend = 5;
 
     public GameWorldComponent(World world) {
         this.world = world;
