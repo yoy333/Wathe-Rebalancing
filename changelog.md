@@ -12,6 +12,7 @@ The Last Voyage of the Harpy Express 1.3 - 1.21.1
   - resetTemplateArea: The template that will be copied over the play area in order to reset the map.
   - resetPasteOffset: The offset at which the template should be pasted.
 - Moved weights, bounds, auto-start and backfire commands to a new /gameSettings command
+- Added a new role dividend setting to /gameSettings that allows setting custom killer and vigilante counts
 - Fixed Derringers not replenishing on kill
 - Fixed Revolvers being able to be double fired
 - Tweaked the API to allow more modability

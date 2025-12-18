@@ -67,6 +67,9 @@ public class GameWorldComponent implements AutoSyncedComponent, ServerTickingCom
 
     private float backfireChance = 0f;
 
+    private int killerDividend = 6;
+    private int vigilanteDividend = 6;
+
     public GameWorldComponent(World world) {
         this.world = world;
     }
@@ -230,6 +233,24 @@ public class GameWorldComponent implements AutoSyncedComponent, ServerTickingCom
         this.sync();
     }
 
+    public int getKillerDividend() {
+        return killerDividend;
+    }
+
+    public void setKillerDividend(int killerDividend) {
+        this.killerDividend = killerDividend;
+        this.sync();
+    }
+
+    public int getVigilanteDividend() {
+        return vigilanteDividend;
+    }
+
+    public void setVigilanteDividend(int vigilanteDividend) {
+        this.vigilanteDividend = vigilanteDividend;
+        this.sync();
+    }
+
     @Override
     public void readFromNbt(@NotNull NbtCompound nbtCompound, RegistryWrapper.WrapperLookup wrapperLookup) {
         this.lockedToSupporters = nbtCompound.getBoolean("LockedToSupporters");
@@ -242,6 +263,9 @@ public class GameWorldComponent implements AutoSyncedComponent, ServerTickingCom
         this.psychosActive = nbtCompound.getInt("PsychosActive");
 
         this.backfireChance = nbtCompound.getFloat("BackfireChance");
+
+        this.killerDividend = nbtCompound.getInt("KillerDividend");
+        this.vigilanteDividend = nbtCompound.getInt("VigilanteDividend");
 
         for (Role role : TMMRoles.ROLES) {
             this.setRoles(uuidListFromNbt(nbtCompound, role.identifier().toString()), role);
@@ -274,6 +298,9 @@ public class GameWorldComponent implements AutoSyncedComponent, ServerTickingCom
         nbtCompound.putInt("PsychosActive", psychosActive);
 
         nbtCompound.putFloat("BackfireChance", backfireChance);
+
+        nbtCompound.putInt("KillerDividend", killerDividend);
+        nbtCompound.putInt("VigilanteDividend", vigilanteDividend);
 
         for (Role role : TMMRoles.ROLES) {
             nbtCompound.put(role.identifier().toString(), nbtFromUuidList(getAllWithRole(role)));

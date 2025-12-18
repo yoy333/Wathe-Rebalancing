@@ -131,15 +131,26 @@ public class TMMLangGen extends FabricLanguageProvider {
         builder.add("game.start_error.game_running", "Game cannot start: a game is already running. Please try again from the lobby.");
 
         builder.add("tmm.gui.reset", "Clear");
-        builder.add("tmm.help.map_variables", """
+
+        builder.add("tmm.map_variables.help", """
                     train: Whether the map is a train and should enable train visuals (like movement, snow, fog...) on game start.
+                    roomCount: The amount of rooms on the map. Determines the range of room keys player receive on game start. 0 to disable room key giving.
                     spawnPos: The spawn position and orientation players will be reset to once the game ends.
                     spectatorSpawnPos: The spawn position and orientation players will be set to when set as spectators at the start of a game.
                     readyArea: The lobby area which players need to be in to be selected for a game.
                     playAreaOffset: The offset between the play area and the game area.
-                    playArea: The play area outside of which players will be eliminated.
+                    playArea: The play area outside which players will be eliminated.
                     resetTemplateArea: The template that will be copied over the play area in order to reset the map.
                     resetPasteOffset: The offset at which the template should be pasted.
+                """);
+        builder.add("tmm.map_variables.set", "Map variable %s successfully set to %s");
+
+        builder.add("tmm.game_settings.help", """
+                    weights: The role weight system that keeps track of the roles players got and favorizes players who did not get vigilante / killer yet to get those roles. Disable if you wish for full-random.
+                    autoStart: Time before the game starts automatically when enough players are boarded in seconds.
+                    backfire: When a civilian shoots an innocent, chance said civilian will shoot themselves instead. 0 (default) is 0%, 1 is 100%.
+                    roleDividend: The amount of players for which 1 of the role will be chosen (default: 6 for both roles). E.g: 4 means that there's one killer / vigilante for 4 players, meaning 2 killers for 8 people, 3 for 12, etc...
+                    bounds: Enable or disable game bounds that limit spectators to the play area.
                 """);
 
         builder.add("commands.supporter_only", "Super silly supporter commands are reserved for Ko-Fi and YouTube members; if you wanna try them out, please consider supporting! <3");

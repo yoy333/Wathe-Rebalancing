@@ -59,22 +59,17 @@ public class TMM implements ModInitializer {
 
         // Register commands
         CommandRegistrationCallback.EVENT.register(((dispatcher, registryAccess, environment) -> {
-            SetMapVariableCommand.register(dispatcher);
+            MapVariablesCommand.register(dispatcher);
+            GameSettingsCommand.register(dispatcher);
             GiveRoomKeyCommand.register(dispatcher);
             StartCommand.register(dispatcher);
             StopCommand.register(dispatcher);
-            EnableWeightsCommand.register(dispatcher);
-            CheckWeightsCommand.register(dispatcher);
-            ResetWeightsCommand.register(dispatcher);
             SetVisualCommand.register(dispatcher);
             ForceRoleCommand.register(dispatcher);
 //            UpdateDoorsCommand.register(dispatcher);
             SetTimerCommand.register(dispatcher);
             SetMoneyCommand.register(dispatcher);
-            SetBoundCommand.register(dispatcher);
-            AutoStartCommand.register(dispatcher);
             LockToSupportersCommand.register(dispatcher);
-            SetBackfireChanceCommand.register(dispatcher);
         }));
 
         // server lock to supporters
