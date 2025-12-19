@@ -53,7 +53,7 @@ public class KnifeItem extends Item implements ItemWithSkin {
         if (clickType == ClickType.RIGHT && otherStack.isEmpty())  {
             if (Wathe.isSupporter(player)) {
                 Skin currentSkin = Skin.fromString(WatheCosmetics.getSkin(stack));
-                WatheCosmetics.setSkin(player.getUuid(), stack, Skin.getNext(currentSkin).getName());
+                WatheCosmetics.setSkin(player, stack, Skin.getNext(currentSkin).getName());
             }
 
             return true;
@@ -100,7 +100,7 @@ public class KnifeItem extends Item implements ItemWithSkin {
 
     @Override
     public int getMaxUseTime(ItemStack stack, LivingEntity user) {
-        return 72000;
+        return 100;
     }
 
     public enum Skin {

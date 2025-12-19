@@ -33,6 +33,7 @@ Wathe 1.3 - 1.21.1
 - Fixed Derringers not replenishing on kill
 - Fixed Revolvers being able to be double fired
 - Fixed the ready area being slightly too small
+- Limited knife max use to 5 seconds to prevent "cheesing and waiting around a corner with a knife ready" really long strat
 - Tweaked the API to allow more modability (PunIsIntendeds)
 - Updated French translation (PadjokeJ)
 - Updated German translation (Lukas0094)
