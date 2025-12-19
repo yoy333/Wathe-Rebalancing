@@ -177,7 +177,7 @@ public class MapVariablesCommand {
 
     private static <T> int setValue(ServerCommandSource source, String valueName, T value, Consumer<T> consumer) {
         consumer.accept(value);
-        source.sendMessage(Text.translatable("wathe.map_variables.set", valueName, value));
+        source.sendMessage(Text.translatable("wathe.map_variables.set", valueName, value.toString()));
         return 1;
     }
 
