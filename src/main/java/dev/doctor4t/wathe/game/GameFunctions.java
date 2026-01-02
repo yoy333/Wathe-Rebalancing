@@ -1,13 +1,31 @@
 package dev.doctor4t.wathe.game;
 
+import java.util.Deque;
+import java.util.HashSet;
+import java.util.List;
+import java.util.UUID;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import com.google.common.collect.Lists;
+
 import dev.doctor4t.wathe.Wathe;
 import dev.doctor4t.wathe.api.GameMode;
 import dev.doctor4t.wathe.api.MapEffect;
 import dev.doctor4t.wathe.api.event.AllowPlayerDeath;
 import dev.doctor4t.wathe.api.event.GameEvents;
 import dev.doctor4t.wathe.api.event.ShouldDropOnDeath;
-import dev.doctor4t.wathe.cca.*;
+import dev.doctor4t.wathe.cca.GameTimeComponent;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
+import dev.doctor4t.wathe.cca.MapVariablesWorldComponent;
+import dev.doctor4t.wathe.cca.PlayerMoodComponent;
+import dev.doctor4t.wathe.cca.PlayerNoteComponent;
+import dev.doctor4t.wathe.cca.PlayerPoisonComponent;
+import dev.doctor4t.wathe.cca.PlayerPsychoComponent;
+import dev.doctor4t.wathe.cca.PlayerShopComponent;
+import dev.doctor4t.wathe.cca.TrainWorldComponent;
+import dev.doctor4t.wathe.cca.WorldBlackoutComponent;
 import dev.doctor4t.wathe.compat.TrainVoicePlugin;
 import dev.doctor4t.wathe.entity.FirecrackerEntity;
 import dev.doctor4t.wathe.entity.NoteEntity;
@@ -33,7 +51,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.text.Text;
 import net.minecraft.util.Clearable;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockBox;
@@ -44,10 +61,6 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.*;
 
 public class GameFunctions {
 
@@ -95,9 +108,10 @@ public class GameFunctions {
         if (playerCount >= gameMode.minPlayerCount) {
             game.setGameStatus(GameWorldComponent.GameStatus.STARTING);
         } else {
-            for (ServerPlayerEntity player : world.getPlayers()) {
-                player.sendMessage(Text.translatable("game.start_error.not_enough_players", gameMode.minPlayerCount), true);
-            }
+            // for (ServerPlayerEntity player : world.getPlayers()) {
+            //     player.sendMessage(Text.translatable("game.start_error.not_enough_players", gameMode.minPlayerCount), true);
+            // }
+            game.setGameStatus(GameWorldComponent.GameStatus.STARTING);
         }
     }
 
@@ -247,6 +261,18 @@ public class GameFunctions {
         killPlayer(victim, spawnBody, killer, GameConstants.DeathReasons.GENERIC);
     }
 
+    final static public double MISFIRE_PUNISH_RATIO = 1;
+
+    public static void awardAllMurderers(World world) {
+        List<? extends PlayerEntity> players = world.getPlayers();
+        List<UUID> killerTeamUUIDs = GameWorldComponent.KEY.get(world).getAllKillerTeamPlayers();
+        for (PlayerEntity possibleKiller : players) {
+            if (killerTeamUUIDs.contains(possibleKiller.getUuid()) && GameWorldComponent.KEY.get(world).canUseKillerFeatures(possibleKiller)) {
+                PlayerShopComponent.KEY.get(possibleKiller).addToBalance((int) (GameConstants.MONEY_PER_KILL * MISFIRE_PUNISH_RATIO));
+            }
+        }
+    }
+
     public static void killPlayer(PlayerEntity victim, boolean spawnBody, @Nullable PlayerEntity killer, Identifier deathReason) {
         PlayerPsychoComponent component = PlayerPsychoComponent.KEY.get(victim);
 
@@ -271,6 +297,10 @@ public class GameFunctions {
         if (killer != null) {
             if (GameWorldComponent.KEY.get(killer.getWorld()).canUseKillerFeatures(killer)) {
                 PlayerShopComponent.KEY.get(killer).addToBalance(GameConstants.MONEY_PER_KILL);
+            }else{
+                GameWorldComponent gameWorldComponent = GameWorldComponent.KEY.get(victim.getWorld());
+                if(gameWorldComponent.getRole(victim).isInnocent());
+                    awardAllMurderers(victim.getWorld());
             }
 
             // replenish derringer
@@ -283,6 +313,10 @@ public class GameFunctions {
                     }
                 }
             }
+        }else{
+            GameWorldComponent gameWorldComponent = GameWorldComponent.KEY.get(victim.getWorld());
+            if(gameWorldComponent.getRole(victim).isInnocent());
+                awardAllMurderers(victim.getWorld());
         }
 
         PlayerMoodComponent.KEY.get(victim).reset();

@@ -1,8 +1,17 @@
 package dev.doctor4t.wathe.game.gamemode;
 
+import java.util.List;
+import java.util.UUID;
+
+import org.jetbrains.annotations.NotNull;
+
 import dev.doctor4t.wathe.api.GameMode;
 import dev.doctor4t.wathe.api.WatheRoles;
-import dev.doctor4t.wathe.cca.*;
+import dev.doctor4t.wathe.cca.GameRoundEndComponent;
+import dev.doctor4t.wathe.cca.GameTimeComponent;
+import dev.doctor4t.wathe.cca.GameWorldComponent;
+import dev.doctor4t.wathe.cca.PlayerShopComponent;
+import dev.doctor4t.wathe.cca.ScoreboardRoleSelectorComponent;
 import dev.doctor4t.wathe.client.gui.RoleAnnouncementTexts;
 import dev.doctor4t.wathe.game.GameConstants;
 import dev.doctor4t.wathe.game.GameFunctions;
@@ -11,10 +20,6 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
-import java.util.UUID;
 
 public class MurderGameMode extends GameMode {
     public MurderGameMode(Identifier identifier) {
@@ -29,8 +34,12 @@ public class MurderGameMode extends GameMode {
 
         // select roles
         ScoreboardRoleSelectorComponent roleSelector = ScoreboardRoleSelectorComponent.KEY.get(world.getScoreboard());
-        int total = roleSelector.assignKillers(world, gameComponent, players, (int) Math.floor((double) players.size() / gameComponent.getKillerDividend()));
-        roleSelector.assignVigilantes(world, gameComponent, players,  (int) Math.floor((double) players.size() / gameComponent.getVigilanteDividend()));
+        int killerCount = (int) Math.floor((double) players.size() / gameComponent.getKillerDividend());
+        int vigilanteCount = (int) Math.floor((double) players.size() / gameComponent.getVigilanteDividend());
+        if (killerCount < 1) killerCount = 1;
+        if (vigilanteCount < 1) vigilanteCount = 1;
+        int total = roleSelector.assignKillers(world, gameComponent, players, killerCount);
+        roleSelector.assignVigilantes(world, gameComponent, players, vigilanteCount);
         return total;
     }
 
